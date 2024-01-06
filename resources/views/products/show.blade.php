@@ -68,25 +68,28 @@
                 {{ $products->stock }}
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 image-container">
-            <div class="form-group">
-                <strong>Image:</strong><br>
-                <div class="card-body">
-                    <p>Product Image:</p>
-                    @if (file_exists(public_path('uploads/products/' . basename($products->image))))
-                        <img src="{{ asset('/uploads/products/' . $products->image) }}" class="product-image" alt="image">
-                    @else
-                        <p>No image available</p>
-                        <p>Debugging Info:</p>
-                        <ul>
-                            <li>Image Path: {{ 'uploads/products/' . basename($products->image) }}</li>
-                            <li>Asset URL: {{ asset('/uploads/products/' . $products->image) }}</li>
-                            <li>Storage URL: {{ Storage::disk('public')->url('uploads/products/' . basename($products->image)) }}</li>
-                        </ul>
-                    @endif
-                </div>
-            </div>
-        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+    <form method="POST" action="{{ route('store') }}" enctype="multipart/form-data">
+        
+    <div class="form-group">
+    <strong>Image:</strong><br>
+    <div class="card-body">
+        <p>Product Image:</p>
+        @if (file_exists(public_path('uploads/products/' . basename($products->image))))
+    <img src="{{ asset('/uploads/products/' . $products->image) }}" width="150" height="150" alt="image">
+@else
+    <p>No image available</p>
+    <p>Debugging Info:</p>
+    <ul>
+        <li>Image Path: {{ 'uploads/products/' . basename($products->image) }}</li>
+        <li>Asset URL: {{ asset('/uploads/products/' . $products->image) }}</li>
+        <li>Storage URL: {{ Storage::disk('public')->url('uploads/products/' . basename($products->image)) }}</li>
+    </ul>
+@endif
+
+    </div>
+</div>
+
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Price:</strong>

@@ -107,40 +107,79 @@
             <div class="row multi-columns-row">
               <div class="col-sm-6 col-md-3 col-lg-3">
               <div class="shop-items">
-              <div class="row">
-              @foreach ($display as $index => $d)
-    <div class="col-sm-4">
-        <div class="shop-item" id="item_{{ $index + 1 }}">
-            <!-- product image -->
-            <div class="card-body">
-                @if (file_exists(public_path('uploads/products/' . basename($d->products->image))))
-                    <img src="{{ asset('/uploads/products/' . $d->products->image) }}" width="500" height="500" alt="image">
-                @else
-                    <p>No image available</p>
-                    <p>Debugging Info:</p>
-                    <ul>
-                        <li>Image Path: {{ 'uploads/products/' . basename($d->products->image) }}</li>
-                        <li>Asset URL: {{ asset('/uploads/products/' . $d->products->image) }}</li>
-                        <li>Storage URL: {{ Storage::disk('public')->url('uploads/products/' . basename($d->products->image)) }}</li>
-                    </ul>
-                @endif
-                <!-- end of image -->
-
-                <h4 class="shop-item-title font-alt" style="margin-bottom: 5px;">
-                    <a href="{{ route('display.show',$d->id) }}">{{ $d->products->name }}</a>
-                </h4>
-                <p style="margin-bottom: 5px;">RM{{ $d->products->price }}</p>
-                <p style="margin-bottom: 5px;">Discount: {{ $d->products->discount_percentage}}%</p>
-                <p style="margin-bottom: 5px;">RM{{ $d->products->price_after_discount}}</p>
-                <div class="shop-item-detail">
-                        
-                </div>
+@section('content')
+    <div class="row">
+        <div class="col-lg-12 margin-tb">
+            <div class="pull-left">
+                <h2> Show Product Details</h2>
             </div>
         </div>
     </div>
-@endforeach
+   
+    <div class="shop-item">
+        <!-- Check if the item has a related product -->
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Product Name:</strong>
+                {{ $display->products->name }}
+            </div>
+        </div>
+    </div>
 
-</div>
+    @if ($display->isNotEmpty())
+    @php
+        $itemId = request()->route('id'); // Retrieve the ID from the URL
+        $item = \App\Display::with('products')->find($itemId); // Retrieve the item by ID along with its related product
+    @endphp
+
+    <!-- Check if the item is found -->
+    @if ($item)
+        <div class="shop-item">
+            <!-- Check if the item has a related product -->
+            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Product Name:</strong>
+                {{ $display->$products->name }}
+            </div>
+        </div>
+            @if ($item->products)
+                <div class="card-body">
+                    <!-- Display image -->
+                    @if (file_exists(public_path('uploads/products/' . basename($item->products->image))))
+                        <img src="{{ asset('/uploads/products/' . $item->products->image) }}" width="150" height="150" alt="image">
+                    @else
+                        <!-- No image available -->
+                        <p>No image available</p>
+                        <!-- Debugging Info -->
+                        <ul>
+                            <li>Image Path: {{ 'uploads/products/' . basename($item->products->image) }}</li>
+                            <li>Asset URL: {{ asset('/uploads/products/' . $item->products->image) }}</li>
+                            <li>Storage URL: {{ Storage::disk('public')->url('uploads/products/' . basename($item->products->image)) }}</li>
+                        </ul>
+                    @endif
+                    <!-- Display other product details -->
+                    <h4 class="shop-item-title font-alt" style="margin-bottom: 5px;">{{ $item->products->name }}</h4>
+                    <p style="margin-bottom: 5px;">RM{{ $item->products->price }}</p>
+                    <p style="margin-bottom: 5px;">Discount: {{ $item->products->discount_percentage }}%</p>
+                    <p style="margin-bottom: 5px;">RM{{ $item->products->price_after_discount }}</p>
+                    <div class="shop-item-detail">
+                        <!-- Additional item details or actions -->
+                        <a href="{{ route('display.show', $item->id) }}" class="btn btn-round btn-b">
+                            <span class="icon-basket">Add To Cart</span>
+                        </a>
+                    </div>
+                </div>
+            @else
+                <p>No related product found for this item.</p>
+            @endif
+        </div>
+    @else
+        <p>Item not found for the specified ID: {{ $itemId }}</p>
+    @endif
+
+@else
+    <p>No items to display.</p>
+@endif
 
 </div>
               </div>
@@ -148,79 +187,6 @@
             <div class="row">
               <div class="col-sm-12">
                 <div class="pagination font-alt"><a href="#"><i class="fa fa-angle-left"></i></a><a class="active" href="#">1</a><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#"><i class="fa fa-angle-right"></i></a></div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <div class="module-small bg-dark">
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-3">
-                <div class="widget">
-                  <h5 class="widget-title font-alt">About Titan</h5>
-                  <p>The languages only differ in their grammar, their pronunciation and their most common words.</p>
-                  <p>Phone: +1 234 567 89 10</p>Fax: +1 234 567 89 10
-                  <p>Email:<a href="#">somecompany@example.com</a></p>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Recent Comments</h5>
-                  <ul class="icon-list">
-                    <li>Maria on <a href="#">Designer Desk Essentials</a></li>
-                    <li>John on <a href="#">Realistic Business Card Mockup</a></li>
-                    <li>Andy on <a href="#">Eco bag Mockup</a></li>
-                    <li>Jack on <a href="#">Bottle Mockup</a></li>
-                    <li>Mark on <a href="#">Our trip to the Alps</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Blog Categories</h5>
-                  <ul class="icon-list">
-                    <li><a href="#">Photography - 7</a></li>
-                    <li><a href="#">Web Design - 3</a></li>
-                    <li><a href="#">Illustration - 12</a></li>
-                    <li><a href="#">Marketing - 1</a></li>
-                    <li><a href="#">Wordpress - 16</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-sm-3">
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Popular Posts</h5>
-                  <ul class="widget-posts">
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-1.jpg" alt="Post Thumbnail"/></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Designer Desk Essentials</a></div>
-                        <div class="widget-posts-meta">23 january</div>
-                      </div>
-                    </li>
-                    <li class="clearfix">
-                      <div class="widget-posts-image"><a href="#"><img src="assets/images/rp-2.jpg" alt="Post Thumbnail"/></a></div>
-                      <div class="widget-posts-body">
-                        <div class="widget-posts-title"><a href="#">Realistic Business Card Mockup</a></div>
-                        <div class="widget-posts-meta">15 February</div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr class="divider-d">
-        <footer class="footer bg-dark">
-          <div class="container">
-            <div class="row">
-              <div class="col-sm-6">
-                <p class="copyright font-alt">&copy; 2017&nbsp;<a href="index.html">TitaN</a>, All Rights Reserved</p>
-              </div>
-              <div class="col-sm-6">
-                <div class="footer-social-links"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-dribbble"></i></a><a href="#"><i class="fa fa-skype"></i></a>
-                </div>
               </div>
             </div>
           </div>
