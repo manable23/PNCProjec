@@ -3,14 +3,14 @@
 <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>List of Staff</h2>
+                <h2>List of Users</h2>
             </div>
             <div class="position-relative">
                 <div class="modal-button mt-2">
                     <button type="button" class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2"
-                            data-bs-toggle="modal" data-bs-target=".add-new-staff"
-                            onclick="window.location.href='{{ route('staff.create') }}'">
-                        <i class="mdi mdi-plus me-1"></i> Add New Staff
+                            data-bs-toggle="modal" data-bs-target=".add-new-user"
+                            onclick="window.location.href='{{ route('user.create') }}'">
+                        <i class="mdi mdi-plus me-1"></i> Add New User
                     </button>
                 </div>
             </div>
@@ -38,16 +38,16 @@
         @php
             $count = 1;
         @endphp
-        @foreach ($staff as $s)
-            @if ($s->user_type === 'admin')
+        @foreach ($user as $u)
+            @if ($u->user_type === 'user')
                 <tr>
                     <td>{{ $count++ }}</td>
-                    <td>{{ $s->name }}</td>
-                    <td>{{ $s->email }}</td>
-                    <td>{{ $s->user_type }}</td>
+                    <td>{{ $u->name }}</td>
+                    <td>{{ $u->email }}</td>
+                    <td>{{ $u->user_type }}</td>
                     <td>
-                        <form action="{{ route('staff.destroy', $s->id) }}" method="POST">
-                            <a class="btn btn-primary btn-rounded" href="{{ route('staff.edit', $s->id) }}">Edit</a>
+                        <form action="{{ route('user.destroy', $u->id) }}" method="POST">
+                            <a class="btn btn-primary btn-rounded" href="{{ route('user.edit', $u->id) }}">Edit</a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-rounded">Delete</button>

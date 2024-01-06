@@ -55,10 +55,9 @@
                         <span class="menu-item" data-key="t-ecommerce">Ecommerce</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ route('category.index') }}" data-key="t-category">Category</a></li>
                         <li><a href="{{ route('products.index') }}" data-key="t-products">Products</a></li>
                         <li><a href="{{ route('order.index') }}" data-key="t-orders">Orders</a></li>
-                        <li><a href="{{ route('category.index') }}" data-key="t-category">Category</a></li>
-
                         
                     </ul>
                 </li>
@@ -70,7 +69,7 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('staff.index') }}" data-key="t-staff-list">Staff List</a></li>
-                        <li><a href="user-list" data-key="t-user-list">User List</a></li>
+                        <li><a href="{{ route('user.index') }}" data-key="t-user-list">User List</a></li>
                     </ul>
                 </li>
             </ul>

@@ -6,20 +6,20 @@ use Illuminate\Http\Request;
 use App\User;
 use DB;
 
-class StaffController extends Controller
+class UserController extends Controller
 {
     public function index(){
 
     
-        $staff = User::all();
+        $user = User::all();
 
-        return view('staff.index',compact('staff'));
+        return view('user.index',compact('user'));
 
     }
 
     public function create()
     {
-        return view('staff.create', compact('staff'));
+        return view('user.create', compact('user'));
     }
 
     public function store(Request $request)
@@ -39,8 +39,7 @@ class StaffController extends Controller
   
         User::create($request->all());
    
-        return redirect()->route('staff.index')
-                        ->with('success','Staff created successfully.');
+        return redirect()->route('user.index')
+                        ->with('success','User created successfully.');
     }
-
 }
