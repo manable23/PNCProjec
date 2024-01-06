@@ -2,6 +2,8 @@
 
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+
 
 
 
@@ -22,7 +24,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Routing untuk auth
+Route::get('/dashboards/{user_type}', 'DashboardController@index') 
+->name('dashboards.index')
+->where('user_type', 'admin|user');
+
+Route::get('/dashboards', 'DashboardController@index')->name('dashboards.index');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -58,9 +65,5 @@ Route::get('/staff/{staff}/edit', 'StaffController@edit')->name('staff.edit');
 Route::put('/staff/{staff}', 'StaffController@update')->name('staff.update');
 Route::delete('/staff/{staff}', 'StaffController@destroy')->name('staff.destroy');
 
+Route::get('/display', 'DisplayController@index')->name('display.index');
 
-
-
-
-
-Route::resource('/profile', 'ProfileController');

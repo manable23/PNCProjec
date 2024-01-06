@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DashboardController;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -36,5 +37,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function authenticated($request, $user)
+    {
+        //Customize the redirect path based on the user type
+        if ($user->user_type =='admin'){
+            return redirect()->route('dashboards.index',['user_type'=>'admin']);
+        }
+        else {
+            return redirect()->route('dashboards.index',['user_type'=>'user']);
+        }
     }
 }
