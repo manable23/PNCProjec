@@ -43,10 +43,10 @@ Route::delete('/order/{order}', 'OrderController@destroy')->name('order.destroy'
 
 Route::get('/products', 'ProductsController@index')->name('products.index');
 Route::get('/products/create', 'ProductsController@create')->name('products.create');
-Route::post('/products', 'ProductsController@store')->name('products.store');
+Route::post('/store', 'ProductsController@store')->name('store');
 Route::get('/products/{products}', 'ProductsController@show')->name('products.show');
-Route::get('/products/{products}/edit', 'ProductsController@edit')->name('products.edit');
-Route::put('/products/{products}', 'ProductsController@update')->name('products.update');
+Route::get('/edit/{id}', 'ProductsController@edit')->name('edit');
+Route::put('/update/{id}', 'ProductsController@update')->name('update'); 
 Route::delete('/products/{products}', 'ProductsController@destroy')->name('products.destroy');
 
 Route::get('/category', 'CategoryController@index')->name('category.index');

@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable();
             $table->integer('stock')->nullable();
-            $table->string('image')->nullable();
+            $table->mediumText('image')->nullable();
             $table->integer('price')->nullable();
             $table->unsignedInteger('discount_percentage')->nullable();
             $table->timestamps();
