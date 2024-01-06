@@ -66,4 +66,5 @@ Route::put('/staff/{staff}', 'StaffController@update')->name('staff.update');
 Route::delete('/staff/{staff}', 'StaffController@destroy')->name('staff.destroy');
 
 Route::get('/display', 'DisplayController@index')->name('display.index');
-
+Route::get('/display/{display}', 'DisplayController@show')->name('display.show');
+Route::get('/display/{id}', 'DisplayController@show')->name('display.show');

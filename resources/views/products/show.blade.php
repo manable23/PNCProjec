@@ -31,9 +31,8 @@
     <form method="POST" action="{{ route('store') }}" enctype="multipart/form-data">
         
     <div class="form-group">
-    <strong>Image:</strong><br>
+    <strong>Product Image:</strong><br>
     <div class="card-body">
-        <p>Product Image:</p>
         @if (file_exists(public_path('uploads/products/' . basename($products->image))))
     <img src="{{ asset('/uploads/products/' . $products->image) }}" width="150" height="150" alt="image">
 @else
