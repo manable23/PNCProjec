@@ -88,6 +88,6 @@
             <a href="{{ route('register') }}">Register</a>
         @endif
     </div>
-    <a href="{{ route('customer.login') }}" class="bottom-button">Register</a>
+    <a href="{{ route('login') }}" class="bottom-button">Register</a>
 </body>
 </html>

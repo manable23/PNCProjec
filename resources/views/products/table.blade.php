@@ -29,11 +29,13 @@
         </div>
         <table class="table table-bordered">
         <tr>
-            <th>No</th>
-            <th>Products Name</th>
-            <th>Stock</th>
-            <th>Price</th>
-            <th>Discount</th>
+            <th width="150px">No</th>
+            <th width="150px">Products Name</th>
+            <th width="150px">Category</th>
+            <th width="150px">Stock</th>
+            <th width="150px">Price (RM)</th>
+            <th width="150px">Discount (%)</th>
+            <th width="150px">Price After Discount (RM)</th>
             <th width="280px">Action</th>
         </tr>
 
@@ -46,15 +48,18 @@
         <tr>
             <td>{{ $count++ }}</td>
             <td>{{ $p->name }}</td>
+            <td>{{ optional($p->category)->name }}</td>
             <td>{{ $p->stock }}</td>
-            <td>{{ $p->price }}</td>
-            <td>{{ $p->discount_percentage }}</td>
+            <td>RM{{ $p->price }}</td>
+            <td>{{ $p->discount_percentage }}%</td>
+            <td>RM{{ $p->price_after_discount }}</td>
+            
             <td>
                 <form action="{{ route('products.destroy',$p->id) }}" method="POST">
    
                     <a class="btn btn-info rounded-pill px-4 py-2" href="{{ route('products.show',$p->id) }}">Show</a>
     
-                    <a class="btn btn-primary" href="{{ route('products.edit',$p->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('edit',$p->id) }}">Edit</a>
    
                     @csrf
                     @method('DELETE')

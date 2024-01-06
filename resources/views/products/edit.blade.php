@@ -20,7 +20,7 @@
         </div>
     @endif
   
-    <form action="{{ route('products.update', $products->id) }}" method="POST">
+    <form action="{{ route('update', $products->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
    
@@ -32,16 +32,34 @@
                     <input type="text" name="name" value="{{ $products->name }}" class="form-control" placeholder="Product Name">
                 </div>
             </div>
+            <strong>Category:</strong>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <select class="form-control" name="category_id">
+                        <option value="">-- Choose Category --</option>
+                        @foreach ($category as $id => $name)
+                            <option
+                                value="{{$id}}" {{ (isset($timetable['category_id']) && $timetable['category_id'] == $id) ? ' selected' : '' }}>{{$name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <br>
+                <br>
+            </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Stock:</strong>
                     <input type="text" name="stock" value="{{ $products->stock }}" class="form-control" placeholder="Stock">
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group"><form method="POST" action="/your-action" enctype="multipart/form-data">
-                    <strong>Product Image:</strong>
-                    <input type="file" name="image" class="form-control-file">
-               </div>
+            </div>
+            
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="input-group">
+                    <div class="custom_file">
+                        <strong>Product Image:</strong>
+                        <input type="file" name="image" class="custom-file-input" value="{{ $products->image}}" >
+                    </div>
+                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
