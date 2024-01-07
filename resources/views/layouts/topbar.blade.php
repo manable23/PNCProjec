@@ -168,12 +168,12 @@
                     aria-expanded="false">
                     <img class="rounded-circle header-profile-user"
                         src="{{ URL::asset('build/images/users/avatar-3.jpg') }}" alt="Header Avatar">
-                    <span class="d-none d-xl-inline-block ms-2 fw-medium font-size-15">{{ auth()->user()->name }}</span>
+                    <span class="d-none d-xl-inline-block ms-2 fw-medium font-size-15">Buh nama</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end pt-0">
                     <div class="p-3 border-bottom">
-                        <h6 class="mb-0">{{ auth()->user()->name }}</h6>
-                        <p class="mb-0 font-size-11 text-muted">{{ auth()->user()->email }}</p>
+                        <h6 class="mb-0">buh names</h6>
+                        <p class="mb-0 font-size-11 text-muted">EMAIL HANG KAT SINI</p>
                     </div>
                     
             

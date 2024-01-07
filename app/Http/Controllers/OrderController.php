@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Products;
 use App\Order;
 use Illuminate\Http\Request;
 use DB;
@@ -26,10 +27,12 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request,$id)
     {
-        
-            return view('order.create');
+        $products = Products::find($id);
+    
+
+    return view('order.create', compact('products'));
     }
 
     /**
@@ -40,16 +43,17 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $products = Products::all();
         $validatedData = $request->validate([
-                'status' => 'nullable|string',
-                'customer_detail' => 'nullable|string',
-                'products_id' => 'nullable|exists:products,id',
-                'category_id' => 'nullable|exists:categories,id',
+                'customer_name' => 'nullable|string',
+                'phone_number' => 'nullable|string',
+                'address' => 'nullable|string',
+                'product_name' => 'nullable|string'
         ]);
+         
+        Order::create($request->all());
 
-        Order::create($validatedData);
-
-        return redirect()->route('orders.index')
+        return redirect()->route('orders.index',compact('products'))
             ->with('success', 'Order created successfully!');
     }
 
@@ -112,4 +116,5 @@ class OrderController extends Controller
         return redirect()->route('order.index')
                         ->with('success','Order deleted successfully');
     }
+
 }

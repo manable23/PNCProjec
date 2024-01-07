@@ -38,7 +38,7 @@
                <li>
                     <a href="javascript: void(0);">
                         <i class="bx bx-home-alt icon nav-icon"></i>
-                        <span class="menu-item" data-key="t-dashboard">Dashboard</span>
+                        <a href="{{ route('dashboard.user') }}" data-key="t-dashboard">Dashboard</a>
                         <span class="badge rounded-pill bg-primary">1</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">

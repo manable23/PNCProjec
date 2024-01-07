@@ -34,7 +34,7 @@ Route::get('/dashboards', 'DashboardController@index')->name('dashboards.index')
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/order', 'OrderController@index')->name('order.index');
-Route::get('/order/create', 'OrderController@create')->name('order.create');
+Route::get('/order/create/{id}', 'OrderController@create')->name('order.create');
 Route::post('/order', 'OrderController@store')->name('order.store');
 Route::get('/order/{order}', 'OrderController@show')->name('order.show');
 Route::get('/order/{order}/edit', 'OrderController@edit')->name('order.edit');
@@ -65,5 +65,13 @@ Route::get('/staff/{staff}/edit', 'StaffController@edit')->name('staff.edit');
 Route::put('/staff/{staff}', 'StaffController@update')->name('staff.update');
 Route::delete('/staff/{staff}', 'StaffController@destroy')->name('staff.destroy');
 
-Route::get('/display', 'DisplayController@index')->name('display.index');
+Route::get('/user', 'UserController@index')->name('user.index');
+Route::get('/user/create', 'UserController@create')->name('user.create');
+Route::post('/user', 'UserController@store')->name('user.store');
+Route::get('/user/{user}', 'UserController@show')->name('user.show');
+Route::delete('/user/{user}', 'UserController@destroy')->name('user.destroy');
+Route::get('/user/{user}/edit', 'UserController@edit')->name('user.edit');
+Route::put('/user/{user}', 'UserController@update')->name('user.update');
 
+Route::get('/dashboard', 'DashboardController@userDashboard')->name('dashboard.user');
+Route::get('/dashboard/products/{id}', 'DashboardController@showProductDetails')->name('product.details');

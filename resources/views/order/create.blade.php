@@ -24,37 +24,66 @@
         </div>
     @endif
 
-    <form action="{{ route('order.store') }}" method="POST">
-        @csrf
+    @if (isset( $products))
+    <div class="row">
+    <div class="col-xs-12">
+        <div class="col-md-6">
+            <h5 class="card-title text-primary" style="font-size: 40px;">{{ $products->name }}</h5>
+            <h5 class="card-title text-primary">Price After Discount: <span style="color: green;">RM{{ $products->price_after_discount }}</span></h5>
+            <!-- Display other product details if needed -->
+        </div>
+
+        @if ($products->image)
+            <div class="col-md-6">
+                <img src="{{ asset('uploads/products/' . $products->image) }}" class="card-img-top" alt="Product Image" style="max-width: 50%; height: auto;">
+            </div>
+        @else
+            <div class="col-md-6">
+                <p>No image available</p>
+            </div>
+        @endif
+    </div>
+</div>
+
+
+    @endif
+
+    @csrf
+
 
         <div class="row">
             <div class="col-xs-6 col-sm-6 col-md-12">
                 <div class="form-group">
-                    <strong>Status:</strong>
-                    <input type="text" name="status" class="form-control" placeholder="Status">
+                    <strong>Customer Name:</strong>
+                    <input type="text" name="customer_name" class="form-control" placeholder="Your Name">
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-12">
                 <div class="form-group">
-                    <strong>Customer Detail:</strong>
-                    <input type="text" class="form-control" name="customer_detail" placeholder="Customer Detail">
+                    <strong>Phone Number:</strong>
+                    <input type="text" class="form-control" name="phone_number" placeholder="Phone Number">
                 </div>
             </div>
             <div class="col-xs-6 col-sm-6 col-md-12">
                 <div class="form-group">
-                    <strong>Product ID:</strong>
-                    <input type="text" class="form-control" name="product_id" placeholder="Product ID">
+                    <strong>Address:</strong>
+                    <input type="text" class="form-control" name="address" placeholder="Address">
                 </div>
             </div>
-            <div class="col-xs-6 col-sm-6 col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
-                    <strong>Category ID:</strong>
-                    <input type="text" class="form-control" name="category_id" placeholder="Category ID">
+                    <strong>Product Name:</strong>
+                    <select class="form-control" name="product_name">
+                        <option value="">-- Choose Product --</option>
+                        @foreach ($products as $id => $name)
+                            <option value="{{ $id }}" {{ (isset($timetable['products_id']) && $timetable['products_id'] == $id) ? ' selected' : '' }}>{{ $name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <a class="btn btn-primary" href="{{ route('order.table') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('dashboard.user') }}"> Back</a>
             </div>
         </div>
     </form>

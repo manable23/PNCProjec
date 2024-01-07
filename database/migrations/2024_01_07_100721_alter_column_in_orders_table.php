@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterColumnInDisplayTable extends Migration
+class AlterColumnInOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AlterColumnInDisplayTable extends Migration
      */
     public function up()
     {
-        Schema::table('display', function (Blueprint $table) {
-
-            $table->foreign('products_id') ->references('id')-> on ('products');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->foreign('products_id')->references('id')->on('products');
         });
     }
 
@@ -26,7 +25,7 @@ class AlterColumnInDisplayTable extends Migration
      */
     public function down()
     {
-        Schema::table('display', function (Blueprint $table) {
+        Schema::table('orders', function (Blueprint $table) {
             //
         });
     }
